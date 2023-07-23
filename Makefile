@@ -56,7 +56,7 @@ fun: buildroot FunKey/output/.config
 	# @$(call MESSAGE,"Making fun in Recovery")
 	# @$(BRMAKE) BR2_EXTERNAL=../Recovery O=../Recovery/output
 	@$(call MESSAGE,"Making fun in FunKey")
-	@$(BRMAKE) BR2_EXTERNAL=../FunKey O=../FunKey/output
+	@$(BRMAKE) BR2_EXTERNAL=../FunKey O=../FunKey/output -j6
 
 sdk: buildroot SDK/output/.config
 	@$(call MESSAGE,"Making FunKey SDK")
@@ -89,10 +89,6 @@ Recovery/%: Recovery/output/.config
 SDK/%: SDK/output/.config
 	@$(call MESSAGE,"Making $(notdir $@) in $(subst /,,$(dir $@))")
 	@$(BR) BR2_EXTERNAL=../SDK O=../SDK/output $(notdir $@)
-
-#%: FunKey/output/.config
-#	@$(call MESSAGE,"Making $@ in FunKey")
-#	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output $@
 
 source:
 	@$(call MESSAGE,"Getting sources")
@@ -143,7 +139,23 @@ defconfig:
 
 fun_defconfig:
 	@$(call MESSAGE,"Updating default configs in FunKey")
-	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output savedefconfig linux-update-defconfig busybox-update-config
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output savedefconfig linux-update-defconfig uboot-update-defconfig busybox-update-config
+
+fun_menuconfig:
+	@$(call MESSAGE,"menuconfig for FunKey")
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output menuconfig
+
+fun_linux_menuconfig:
+	@$(call MESSAGE,"menuconfig for FunKey")
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output linux-menuconfig
+
+fun_uboot_menuconfig:
+	@$(call MESSAGE,"menuconfig for FunKey")
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output uboot-menuconfig
+
+fun_busybox_menuconfig:
+	@$(call MESSAGE,"menuconfig for FunKey")
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output busybox-menuconfig
 
 clean:
 	@$(call MESSAGE,"Clean everything")
