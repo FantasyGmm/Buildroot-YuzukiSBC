@@ -2,3 +2,5 @@ linux-src/
 uboot-src/
 buildroot-2022.02/
 buildroot/**/*.d
+download/
+FunKey/
