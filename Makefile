@@ -56,7 +56,7 @@ fun: buildroot FunKey/output/.config
 	# @$(call MESSAGE,"Making fun in Recovery")
 	# @$(BRMAKE) BR2_EXTERNAL=../Recovery O=../Recovery/output
 	@$(call MESSAGE,"Making fun in FunKey")
-	@$(BRMAKE) BR2_EXTERNAL=../FunKey O=../FunKey/output -j6
+	@$(BRMAKE) BR2_EXTERNAL=../FunKey O=../FunKey/output -j 6
 
 sdk: buildroot SDK/output/.config
 	@$(call MESSAGE,"Making FunKey SDK")
@@ -146,16 +146,27 @@ fun_menuconfig:
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output menuconfig
 
 fun_linux_menuconfig:
-	@$(call MESSAGE,"menuconfig for FunKey")
+	@$(call MESSAGE,"menuconfig for FunKey Kernel")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output linux-menuconfig
 
 fun_uboot_menuconfig:
-	@$(call MESSAGE,"menuconfig for FunKey")
+	@$(call MESSAGE,"menuconfig for FunKey Uboot")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output uboot-menuconfig
 
 fun_busybox_menuconfig:
-	@$(call MESSAGE,"menuconfig for FunKey")
+	@$(call MESSAGE,"menuconfig for FunKey Busybox")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output busybox-menuconfig
+
+fun_rebuild_kernel:
+	@$(call MESSAGE,"Rebuild Kernel for FunKey")
+	@rm FunKey/output/images/*.dtb
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output linux-rebuild -j8
+	@make fun
+
+fun_rebuild_uboot:
+	@$(call MESSAGE,"Rebuild Uboot for FunKey")
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output uboot-rebuild -j8
+	@make fun
 
 clean:
 	@$(call MESSAGE,"Clean everything")
