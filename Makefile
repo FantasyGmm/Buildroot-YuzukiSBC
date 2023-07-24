@@ -146,19 +146,19 @@ fun_menuconfig:
 	@$(call MESSAGE,"Menuconfig for FunKey")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output menuconfig
 
-fun_linux_menuconfig:
+fun_menuconfig_linux:
 	@$(call MESSAGE,"Kernel Menuconfig for FunKey")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output linux-menuconfig
 
-fun_uboot_menuconfig:
+fun_menuconfig_uboot:
 	@$(call MESSAGE,"Uboot Menuconfig for FunKey")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output uboot-menuconfig
 
-fun_busybox_menuconfig:
+fun_menuconfig_busybox:
 	@$(call MESSAGE,"Busybox Menuconfig for FunKey")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output busybox-menuconfig
 
-fun_rebuild_kernel:
+fun_rebuild_linux:
 	@$(call MESSAGE,"Kernel Rebuild for FunKey")
 	@touch FunKey/output/images/a.dtb
 	@rm FunKey/output/images/*.dtb
