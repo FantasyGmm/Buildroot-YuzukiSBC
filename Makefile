@@ -233,6 +233,10 @@ fun_defconfig_linux:
 	@$(call MESSAGE,"Updating Linux configs in FunKey")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output linux-update-defconfig
 
+fun_defconfig_uboot:
+	@$(call MESSAGE,"Updating Uboot configs in FunKey")
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output uboot-update-defconfig
+
 fun_defconfig_busybox:
 	@$(call MESSAGE,"Updating Busybox configs in FunKey")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output busybox-update-config
@@ -245,6 +249,10 @@ fun_menuconfig_linux:
 	@$(call MESSAGE,"Menuconfig Kernel for FunKey")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output linux-menuconfig
 
+fun_menuconfig_uboot:
+	@$(call MESSAGE,"Menuconfig Uboot for FunKey")
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output uboot-menuconfig
+
 fun_menuconfig_busybox:
 	@$(call MESSAGE,"Menuconfig Busybox for FunKey")
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output busybox-menuconfig
@@ -254,6 +262,11 @@ fun_rebuild_linux:
 	@touch FunKey/output/images/a.dtb
 	@rm FunKey/output/images/*.dtb
 	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output linux-rebuild
+	@make image
+
+fun_rebuild_uboot:
+	@$(call MESSAGE,"Rebuild Uboot for FunKey")
+	@$(BR) BR2_EXTERNAL=../FunKey O=../FunKey/output uboot-rebuild -j8
 	@make image
 
 fun_rebuild_busybox:
